@@ -1,0 +1,25 @@
+{% extends 'patients/base.html' %}
+
+{% block title %}Patient Registration{% endblock %}
+
+{% block content %}
+    <div class="patient-register-root">
+        <div class="register-container">
+            <h2>Creer un compte</h2>
+            <form method="post" enctype="multipart/form-data">
+                 {% csrf_token %}
+                {% for field in form %}
+                    {% if field.name == 'full_name' %}
+                        <label for="{{ field.id_for_label }}">Nom complet</label><br>
+                    {% elif field.name == 'birth_date' %}
+                        <label for="{{ field.id_for_label }}">Date de naissance</label><br>
+                    {% else %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label><br>
+                    {% endif %}
+                    {{ field }}<br>
+                {% endfor %}
+                <button type="submit" class="registerbutton">S'enregistrer</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

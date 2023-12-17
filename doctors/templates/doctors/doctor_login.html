@@ -1,0 +1,24 @@
+{% extends 'doctors/base.html' %}
+
+{% block title %}Doctor Login{% endblock %}
+
+{% block content %}
+    <div class="doctor-login-root">
+        <div class="login-container">
+            <h2>Medecin</h2>
+            <form method="post" action="{% url 'doctor_login' %}">
+                {% csrf_token %}
+                <label for="email">Email:</label>
+                <br>
+                <input type="email" name="email" class="inputfield" required>
+                <br>
+                <label for="password">Password:</label>
+                <br>
+                <input type="password" name="password" class="inputfield" required>
+                <br>
+                <input type="submit" value="Login" class="loginbutton" >
+            </form>
+        </div>
+    </div>
+    
+{% endblock %}

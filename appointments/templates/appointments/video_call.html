@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Video Call</h2>
+  <p>You are about to join a video call with {{ appointment.doctor }}.</p>
+  <p>Date: {{ appointment.date }}</p>
+  <p>Reason: {{ appointment.reason }}</p>
+  <a href="{{ appointment.video_call_link }}" target="_blank">Join Video Call</a>
+{% endblock %}

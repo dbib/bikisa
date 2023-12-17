@@ -1,0 +1,15 @@
+{% extends 'appointments/appointments_base.html' %}
+
+{% block title %}Demande de consultation{% endblock %}
+{% block content %}
+  <div class="ask_consultation_root">
+    <div class="ask_consultation_box">
+      <h2>Demande de consultation</h2>
+      <form method="post" action="{% url 'appointments:appointment_create' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="askconsultationbutton">Envoyer</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

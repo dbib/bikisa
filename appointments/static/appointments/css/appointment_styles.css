@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif; 
+    color: black; 
+}
+
+header {
+    background: none;
+    padding: 10px;
+    font-size: 10px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 0;
+}
+
+footer {
+    background: none;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    font-size: 10px;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer li {
+    display: inline;
+    margin-right: 10px;
+    font-size: 10px;
+}
+
+.ask_consultation_root{
+  min-heigh:90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ask_consultation_box{
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.form-control {
+    border: 1px solid black;
+    border-radius: 10px;
+    background: none;
+    color: black;
+    padding: 5px;
+    margin: 10px 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.askconsultationbutton {
+    border: 1px solid #7734e7;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    pading: 10px;
+    margin: 10px 0px;
+    color: #FFF;
+    background-color: #7734e7;
+    height: 40px;
+}
+
+.askconsultationbutton:hover {
+    background-color: #0132fc;
+    cursor: pointer;
+}

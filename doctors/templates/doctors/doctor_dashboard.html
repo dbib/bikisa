@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medecin Dashboard</title>
+</head>
+<body>
+  {% block content %}
+    <h2>Pending Appointment Requests</h2>
+    <ul>
+        {% for appointment in pending_appointments %}
+            <li>
+                <strong>{{ appointment.patient.full_name }}</strong> - {{ appointment.date }} at {{ appointment.time }}
+                <form method="post" action="{% url 'doctor_approve_appointment' appointment.id %}">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="approve">Approve</button>
+                    <button type="submit" name="action" value="reject">Reject</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+    
+    
+    <form action="{% url 'doctor_logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Se deconnecter">
+    </form>
+</body>
+</html>

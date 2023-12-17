@@ -1,0 +1,17 @@
+{% extends 'appointments/appointments_base.html' %}
+
+{% block title %}Appointments List{% endblock %}%}
+
+{% block content %}
+  <h2>Your Appointments</h2>
+  <ul>
+    {% for appointment in appointments %}
+      <li>
+        {{ appointment.date }} - {{ appointment.doctor }} - {{ appointment.reason }}
+        {% if appointment.status == 'approved' %}
+          - <a href="{% url 'video_call' appointment.id %}">Join Video Call</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
