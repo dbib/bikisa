@@ -8,30 +8,32 @@
     <link rel="stylesheet" href="{% static 'patients/css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body> 
+    <div class="edit-form-root">
     <div class="edit-form-container">
         <h2>Modifier les informations</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="full_name">Nom complet:</label><br>
-            <input type="text" name="full_name" value="{{ patient.full_name }}" required><br>
+            <input type="text" name="full_name" value="{{ patient.full_name }}" class="inputfield" required><br>
             <label for="email">Email:</label><br>
-            <input type="email" name="email" value="{{ patient.email }}" required><br>
+            <input type="email" name="email" value="{{ patient.email }}" class="inputfield" required><br>
             <label for="phone_number">Numero de telephone:</label><br>
-            <input type="text" name="phone_number" value="{{ patient.phone_number }}" required><br>
+            <input type="text" name="phone_number" value="{{ patient.phone_number }}" class="inputfield" required><br>
             <label for="address">Address:</label><br>
-            <textarea name="address" required>{{ patient.address }}</textarea><br>
+            <textarea name="address" class="inputfield" required>{{ patient.address }}</textarea><br>
             <label for="birth_date">Date of Birth:</label><br>
-            <input type="date" name="birth_date" value="{{ patient.birth_date }}" required><br>
+            <input type="date" name="birth_date" value="{{ patient.birth_date }}" class="inputfield" required><br>
             <label for="profile_image">Profile Image:</label>
-            <input type="file" name="profile_image" accept="image/*"><br>
+            <input type="file" name="profile_image" accept="image/*" class="inputfield" ><br>
             {% if patient.profile_image %}
                 <img src="{{ patient.profile_image.url }}" alt="Current Profile Picture">
             {% else %}
                 <p>No profile picture available.</p>
             {% endif %}
-            <button type="submit">Enregistre</button>
+            <button type="submit" class="login-button">Enregistre</button>
         </form>
+    </div>
     </div>
 </body>
 </html>

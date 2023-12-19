@@ -53,13 +53,13 @@ footer li {
 }
 
 .login-container {
-    /*background-color: rgba(255, 255, 255, 0.7);*/
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 20px;
     border-radius: 10px;
     max-width: 700px;
     margin: 0 auto;
     margin-top: 50px;
+    font-size: 12px;
 }
 
 .login-container h2 {
@@ -84,8 +84,9 @@ footer li {
     margin: 10px 0px;
     color: #FFF;
     background-color: #7734e7;
-    width: 70px;
+    width: 90px;
     height: 30px;
+    cursor: pointer;
 }
 
 .loginbutton:hover {

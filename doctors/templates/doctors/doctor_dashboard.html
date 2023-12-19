@@ -1,31 +1,87 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medecin Dashboard</title>
+    <title>{{doctor.name}}</title>
+    <link rel="stylesheet" href="{% static 'doctors/css/doc_dash_style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  {% block content %}
-    <h2>Pending Appointment Requests</h2>
-    <ul>
-        {% for appointment in pending_appointments %}
-            <li>
-                <strong>{{ appointment.patient.full_name }}</strong> - {{ appointment.date }} at {{ appointment.time }}
-                <form method="post" action="{% url 'doctor_approve_appointment' appointment.id %}">
-                    {% csrf_token %}
-                    <button type="submit" name="action" value="approve">Approve</button>
-                    <button type="submit" name="action" value="reject">Reject</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-{% endblock %}
-    
-    
-    <form action="{% url 'doctor_logout' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Se deconnecter">
-    </form>
-</body>
+  <header>
+        <h1>Bikisa</h1>
+    </header>
+  <div class="doctor-dash-root">
+    <div class="doctor-dash-info">
+        <div class="doctor-dash-info-box">
+            <div class="doctor-img-box">
+                <img src="{{doctor.profile_picture.url}}">
+            </div>
+            <div class="doctor-text-box">
+                <h3>{{doctor.name}}</h3>
+                <p>{{doctor.email}}</p>
+                <p>{{doctor.bio}}</p>
+                <p>{{doctor.hospital}}</p>
+                <a href="{% url 'doctor_logout' %}">Se deconnecter</a>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="doctor-dash-pending">
+        <div class=doctor-dash-pending-box-info>
+            <h2>Demande de consultation en attente</h2>
+            <p>Vous pouvez accepter ou regetter ces demandes</p>
+        </div>
+        <div class="doctor-dash-pending-elements">
+            <ul class="pending-elemets-box">
+                {% for appointment in pending_appointments %}
+                    <li class="pending-element">
+                        <div class="patient_list_pic">
+                            <img src="{{appointment.patient.profile_image.url}}" >
+                        </div>
+                        <div class="patient_list_text">
+                            <p><strong>{{ appointment.patient.full_name }}</strong> - {{ appointment.date }} at {{ appointment.time }}</p>
+                        </div>
+                        <form method="post" action="{% url 'doctor_approve_appointment' appointment.id %}" class="pending-element-actions">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="approve" class="pending-approve-btn">Approuver</button>
+                            <button type="submit" name="action" value="reject" class="pending-reject-btn">Regetter</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            <ul>
+        </div>
+    </div>
+  </div>
+    <div class="doctor-dash-appointment-history">
+        <h3>Liste des consultations</h3>
+        <p>Cliquez sur une consultation pour voir les details et le lien pour l'appel video</p>
+        <ul class="doctor-appointment-history-box">
+                {% for appointment in approved_appointments %}
+                    <li class="doctor-appointment-box-element">
+                        <a href="{% url 'appointment_details' appointment.id %}" class="doctor-appointment-link">
+                            <div class="doctor-appointment-detail-link-img-box">
+                                <img src="{{appointment.patient.profile_image.url}}">
+                            </div>
+                            <div class="doctor-appointment-detail-link-text-box">
+                                <p>Consultation ID: {{ appointment.id }}</p>
+                                <p>Patient: {{ appointment.patient.full_name }}</p>
+                                <p>symptoms: {{appointment.reason}}</p>
+                                <p>Status: {{ appointment.status}}</p>
+                                <p>Heure: {{ appointment.time}}</p>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+        </ul>
+    </div>
+    <footer>
+        <p>&copy; 2023 Bikisa</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+    </footer>
+</body> 
 </html>

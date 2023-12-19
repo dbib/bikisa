@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 class DoctorManager(BaseUserManager):
     def create_user(self, email, name, password=None):
         if not email:
-            raise ValueError('The Email field must be set')
+            raise ValueError("Le champ email doit etre completer")
         email = self.normalize_email(email)
         doctor = self.model(email=email, name=name)
         doctor.set_password(password)

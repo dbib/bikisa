@@ -11,12 +11,10 @@ def appointment_create(request, *args, **kwargs):
 
         if form.is_valid():
             try:
-                # Save the appointment in a pending state
+                # Enregistrer une demande de consultation avec un etat "en attente"
                 appointment = form.save(commit=True)
-
-                # Add any additional logic, such as sending notifications
-
-                return redirect('patient_dashboard')  # Redirect to the patient dashboard after appointment request
+                
+                return redirect('patient_dashboard')  # Rediriger les patients vers le dashboard patient
             except ValidationError as e:
                 messages.error(request, str(e))
                 return render(request, template_name, {'form': form})
@@ -24,3 +22,5 @@ def appointment_create(request, *args, **kwargs):
         form = AppointmentForm(initial={'patient': request.session.get('patient_id')})
 
     return render(request, template_name, {'form': form})
+
+

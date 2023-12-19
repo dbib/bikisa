@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PatientRegistrationForm
 from .forms import PatientEditForm
 from .models import Patient
@@ -12,21 +13,21 @@ def patient_register(request):
     if request.method == 'POST':
         form = PatientRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            # Check if passwords match
+            # Verifier si le mot de passe correspond
             password = form.cleaned_data['password']
             password_confirmation = form.cleaned_data['password_confirmation']
             if password != password_confirmation:
                 messages.error(request, 'Passwords do not match.')
                 return render(request, 'patients/patient_register.html', {'form': form})
 
-            # Save the patient to the database
+            # Enregistrer le patient dans la base de donnee
             form.save()
 
-            # Redirect to the patient login page
+            # Rediriger le patient vers la page login
             messages.success(request, 'Votre comptez a ete creer avec succes. Veuillez vous connecter')
             return redirect('patient_login')
         else:
-            # Form is not valid, display an error message
+            # Si le formulaire n'est pas valide, affiche le message d'erreur
             messages.error(request, 'Completer toute les lignes requises.')
     else:
         form = PatientRegistrationForm()
@@ -40,22 +41,22 @@ def patient_login(request):
         password = request.POST['password']
 
         try:
-            # Retrieve patient with the given email
+            # Retrouver le patient utilisant l'email
             patient = Patient.objects.get(email=email)
         except Patient.DoesNotExist:
-            # Patient with the given email does not exist
-            messages.error(request, 'Email ou mot de passe incorrect.')
+            # Si l'email n'existe pas dans la BD, on le redirige vers la page login
+            messages.error(request, 'Email incorrect.')
             return render(request, 'patients/patient_login.html')
 
-        # Check if the provided password matches the stored hashed password
+        # Verifier si le mot de passe correspond
         if check_password(password, patient.password):
-            # Password is correct
+            # Si le mot de passe est correct
             # You can add additional checks or logic here if needed
-            request.session['patient_id'] = patient.id  # Store patient ID in the session
+            request.session['patient_id'] = patient.id  # On enregistre le patient dans la BD et on le redirige vers le dashboard
             return redirect('patient_dashboard')
         else:
-            # Password is incorrect
-            messages.error(request, 'Email ou mot de passe incorrect')
+            # Si le mot de passe est incorrect
+            messages.error(request, 'mot de passe incorrect') # On renvoie l'erreur et on redirige le patient vers la page login
             return render(request, 'patients/patient_login.html')
 
     return render(request, 'patients/patient_login.html')
@@ -77,7 +78,7 @@ def patient_edit(request):
                 form = PatientEditForm(request.POST, instance=patient)
                 if form.is_valid():
                     form.save()
-                    messages.success(request, 'Your information has been updated.')
+                    messages.success(request, 'Vos informations ont etet modifiees avec succes')
                     return redirect('patient_dashboard')
             else:
                 form = PatientEditForm(instance=patient)
@@ -86,7 +87,7 @@ def patient_edit(request):
         except Patient.DoesNotExist:
             pass
 
-    messages.error(request, 'Please log in first.')
+    messages.error(request, 'Veuillez vous connecter.')
     return redirect('patient_login')
 
 # Gerer le dashboard du patient
@@ -95,12 +96,17 @@ def patient_dashboard(request, *args, **kwargs):
     patient_id = request.session.get('patient_id')
 
     if not patient_id:
-        return redirect('patient_login')  # Redirect to the patient login page with a "Please login" message
+        return redirect('patient_login')  #Rediriger le patient vers le login
 
     patient = Patient.objects.get(id=patient_id)
     
-    # voir les consultation passee et ceux avenir
+    # voir les consultations passee et ceux avenir
     upcoming_appointments = Appointment.objects.filter(patient=patient, status='Pending')
     past_appointments = Appointment.objects.filter(patient=patient, status__in=['Approved', 'Rejected'])
     
     return render(request, template_name, {'upcoming_appointments': upcoming_appointments, 'past_appointments': past_appointments, 'patient':patient})
+
+def appointment_details(request, appointment_id):
+    patient_id = request.session.get('patient_id')
+    appointment = get_object_or_404(Appointment, id=appointment_id, patient = Patient.objects.get(id=patient_id))
+    return render(request, 'patients/appointment_details.html', {'appointment': appointment})

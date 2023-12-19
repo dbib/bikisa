@@ -1,0 +1,6 @@
+<!-- doctors/appointment_details.html -->
+<h2>Appointment Details</h2>
+<p>Appointment ID: {{ appointment.id }}</p>
+<p>Patient: {{ appointment.patient.full_name }}</p>
+<!-- Add more appointment details as needed -->
+<a href="{% url 'join_video_call' %}">Join Video Call</a>

@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 class PatientManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
-            raise ValueError('une addresse mail doit etre defini')
+            raise ValueError('Le champ email doit etre completer')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -26,8 +26,6 @@ class Patient(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length=128)
     appointments = models.ManyToManyField('appointments.Appointment', related_name='patient_appointments')
 
-    # Add other relevant fields as needed
-
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -36,7 +34,6 @@ class Patient(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['full_name']
 
-    # Add related_name to avoid clashes with auth.User's groups and user_permissions
     groups = models.ManyToManyField(
         'auth.Group',
         related_name='patient_set',
@@ -57,5 +54,3 @@ class Patient(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-    
-    
