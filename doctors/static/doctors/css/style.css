@@ -16,6 +16,11 @@ header h1 {
     margin: 0;
 }
 
+.header-link {
+    text-decoration: none;
+    color: #FFF;
+}
+
 main {
     padding: 0;
 }

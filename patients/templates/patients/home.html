@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikisa</title>
+    <link rel="stylesheet" href="{% static 'patients/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenu sur Bikisa</h1>
+        <p>Choisisser votre option:</p>
+        <ul>
+            <li><a href="{% url 'doctor_login' %}">Se connecter en tant que Medecin</a></li>
+            <li><a href="{% url 'patient_login' %}">Se connecter en tant que Patient</a></li>
+        </ul>
+    </div>
+</body>
+</html>

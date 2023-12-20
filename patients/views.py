@@ -8,6 +8,10 @@ from django.contrib.auth.hashers import check_password
 from appointments.models import Appointment
 from django.views import View
 
+# Page d'acceuil
+def home(request):
+    return render(request, 'home.html')
+
 # Creer un compte patient
 def patient_register(request):
     if request.method == 'POST':

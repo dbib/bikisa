@@ -16,6 +16,12 @@ header h1 {
     margin: 0;
 }
 
+.header-link {
+    text-decoration: none;
+    color: #FFF;
+}
+
+
 main {
     padding: 0;
 }
@@ -47,7 +53,7 @@ li {
     list-style-type: none;
 }
 
-.patient-register-root, .patient-login-root, .edit-form-root {
+.home-root, .patient-register-root, .patient-login-root, .edit-form-root {
   background-size: cover; 
   width: 100vw;
   min-height: 80vh;
@@ -56,7 +62,7 @@ li {
   justify-content: center;
 }
 
-.register-container,  .login-container, .edit-form-container {
+.home-container, .register-container,  .login-container, .edit-form-container {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 20px;
     border-radius: 10px;
@@ -65,8 +71,21 @@ li {
     margin-top: 50px;
 }
 
-.register-container h2, .login-container h2, .edit-form-container h2 {
+.home-container h1, .register-container h2, .login-container h2, .edit-form-container h2 {
     text-align: center;
+}
+
+.home-container p {
+    text-align: center;
+}
+
+.home-container div {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
 }
 
 .register-container form, .login-container form, .edit-form-container form {
@@ -87,6 +106,23 @@ li {
     padding: 5px;
     margin: 10px 0px;
     font-family: 'Roboto', sans-serif;
+}
+
+.home-choice {
+    margin: 10px 0px;
+    font-size: 12px;
+    padding: 5px 5px;
+    text-decoration:none;
+    border: 1px solid #7734e7;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    margin: 10px 0px;
+    color: #FFF;
+    background-color: #7734e7;
+}
+
+.home-choice:hover {
+    background-color: #0132fc; 
 }
 
 .registerbutton, .login-button {

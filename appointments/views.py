@@ -22,5 +22,3 @@ def appointment_create(request, *args, **kwargs):
         form = AppointmentForm(initial={'patient': request.session.get('patient_id')})
 
     return render(request, template_name, {'form': form})
-
-
