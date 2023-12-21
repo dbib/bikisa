@@ -37,6 +37,7 @@
                 <a href="{% url 'appointments:appointment_create' %}" class="patient-ask-consultation">Demander une consultation</a>
             </div>
             <div class="my-history-section">
+                <div class="patient-consultation-vue">
                 <h2>Consultations vues</h2>
                 <p>Cliquez sur une consultation pour voir les detailles et le lien vers l'appel video</p>
                     <ul class="patient-history-box">
@@ -59,7 +60,9 @@
                             </li>
                         {% endfor %}
                     </ul>
+                </div>
 
+                <div class="patient-consultation-attentes">
                 <h2>Consultations en attentes</h2>
                     <ul class="patient-history-box">
                         {% for appointment in upcoming_appointments %}
@@ -79,6 +82,7 @@
                             </li>
                         {% endfor %}
                     </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -107,7 +111,7 @@
             .then(data => {
                 if (data.status === 'success') {
                     // Refresh or update the UI as needed
-                    alert('Appointment status updated successfully!');
+                    alert('La consultation a ete vue avec succes!');
                 }
             })
             .catch(error => console.error('Error:', error));

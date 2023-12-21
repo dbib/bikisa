@@ -169,3 +169,12 @@ li {
 .patient-history-element-details-text-box {
     padding: 10px 0px;
 }
+
+/*APPOINTMENT DETAILS */
+.appointment-detail-root{
+    min-height: 90vh;
+    font-size: 12px;
+    background-color:#FFF;
+    color: black;
+    padding: 30px;
+}
