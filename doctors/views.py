@@ -13,7 +13,8 @@ def doctor_login(request):
 
         try:
             doctor = Doctor.objects.get(email=email)
-            if check_password(password, doctor.password):
+            if password == doctor.password:
+            #if check_password(password, doctor.password):
                 # Si le mot de passe est correct, on enregistre l'utilisateur dans la session
                 request.session['doctor_id'] = doctor.id  # Enregistrer les donnees du medecin dans la  session
                 return redirect('doctor_dashboard')
@@ -26,7 +27,7 @@ def doctor_login(request):
 
     return render(request, 'doctors/doctor_login.html')
 
-# Gerer le dashboards de medecins le @ assure que vous devez etre connecter pour avoir acces a cette page
+# Gerer le dashboards de medecins 
 def doctor_login_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
         if 'user_email' not in request.session:
@@ -91,6 +92,14 @@ def doctor_approve_appointment(request, appointment_id):
     return redirect('doctor_dashboard')
 
 # Gerer les details des consultation
-def appointment_details(request, appointment_id):
-    appointment = get_object_or_404(Appointment, id=appointment_id, doctor=request.user.doctor)
+def doctor_appointment_details(request, appointment_id):
+    doctor = Doctor.objects.get(id=request.session.get('doctor_id'))
+    appointment = get_object_or_404(Appointment, id=appointment_id, doctor=doctor)
+
     return render(request, 'doctors/appointment_details.html', {'appointment': appointment})
+    
+# Gerer les appels videos
+def doctor_video(request):
+    doctor_id = request.session.get('doctor_id')
+    doctor = Doctor.objects.get(id=doctor_id)
+    return render(request, 'doctors/doctor_video.html', {'doctor': doctor})

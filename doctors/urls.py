@@ -1,11 +1,12 @@
 # doctors/urls.py
 from django.urls import path
-from .views import doctor_login, doctor_dashboard, doctor_approve_appointment, doctor_logout, appointment_details
+from .views import doctor_login, doctor_dashboard, doctor_approve_appointment, doctor_logout, doctor_appointment_details, doctor_video
 
 urlpatterns = [
     path('login/', doctor_login, name='doctor_login'),
     path('dashboard/', doctor_dashboard, name='doctor_dashboard'),
     path('approve-appointment/<int:appointment_id>/', doctor_approve_appointment, name='doctor_approve_appointment'),
-    path('appointments/<int:appointment_id>/', appointment_details, name='appointment_details'),
+    path('doctor_appointment/<int:appointment_id>/', doctor_appointment_details, name='doctor_appointment_details'),
     path('logout/', doctor_logout, name='doctor_logout'),
+    path('doctor_video/', doctor_video, name='doctor_video' )
 ]

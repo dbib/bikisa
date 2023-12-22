@@ -1,6 +1,14 @@
-<!-- doctors/appointment_details.html -->
-<h2>Appointment Details</h2>
-<p>Appointment ID: {{ appointment.id }}</p>
-<p>Patient: {{ appointment.patient.full_name }}</p>
-<!-- Add more appointment details as needed -->
-<a href="{% url 'join_video_call' %}">Join Video Call</a>
+{% block content %}
+  <h2>Appointment Details</h2>
+  <p>Doctor: {{ appointment.doctor }}</p>
+  <p>Patient: {{ appointment.patient }}</p>
+  <p>Date: {{ appointment.date }}</p>
+  <p>Time: {{ appointment.time }}</p>
+  <p>Reason: {{ appointment.reason }}</p>
+  <!-- Add more details as needed -->
+
+  <!-- Add a link to join the video call if applicable -->
+  {% if appointment.status == 'Approved' %}
+    <a href="{% url 'doctor_video' %}">Link to Video Call</a>    
+  {% endif %}
+{% endblock %}

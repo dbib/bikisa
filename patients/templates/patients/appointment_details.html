@@ -21,7 +21,7 @@
         <p>Demande pour le {{appointment.date}} a {{appointment.time}}</p>
         <!-- Add more appointment details as needed -->
         {% if appointment.status == 'Approved' %}
-            <a href="{% url 'join_video_call' %}">Join Video Call</a>
+            <a href="#">Join Video Call</a>
         {% endif %}
 
         {% if appointment.status == 'Rejected' %}

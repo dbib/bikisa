@@ -60,7 +60,7 @@
         <ul class="doctor-appointment-history-box">
                 {% for appointment in approved_appointments %}
                     <li class="doctor-appointment-box-element">
-                        <a href="{% url 'appointment_details' appointment.id %}" class="doctor-appointment-link">
+                        <a href="{% url 'doctor_appointment_details' appointment.id %}" class="doctor-appointment-link">
                             <div class="doctor-appointment-detail-link-img-box">
                                 <img src="{{appointment.patient.profile_image.url}}">
                             </div>
