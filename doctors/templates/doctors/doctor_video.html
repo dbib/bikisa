@@ -1,10 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Doctor App{% endblock %}</title>
     <style>
         #root {
             width: 100vw;
@@ -12,6 +8,8 @@
             }
     </style>
 </head>
+
+
 <body>
     <div id="root"></div>
 </body>
@@ -34,7 +32,7 @@ window.onload = function () {
         // @param 5: Username
     const roomID = getUrlParams(window.location.href)['roomID'] || (Math.floor(Math.random() * 10000) + "");
     const userID = Math.floor(Math.random() * 10000) + "";
-    const userName = {{ doctor.name}};
+    const userName = "{{doctor.name}}";
     const appID = 1607422683;
     const serverSecret = "cc4d5d77fbe31dfc0087d4c18b02c3de";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
@@ -66,4 +64,5 @@ window.onload = function () {
             });
 }
 </script>
+
 </html>

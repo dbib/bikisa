@@ -19,6 +19,7 @@ footer {
     padding: 10px;
     text-align: center;
     width: 100%;
+    color: black;
 }
 
 footer p {
@@ -218,4 +219,46 @@ p {
 
 .doctor-appointment-detail-link-text-box {
   padding: 10px 0px;
+}
+
+/* APPOINTMENT*/
+.appointment-detail-root{
+    min-height: 90vh;
+    font-size: 12px;
+    background-color:#FFF;
+    color: black;
+    padding: 30px;
+}
+
+.start-video-call {
+  border: 1px solid #1CAC78;
+  border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+  padding: 8px;
+  margin: 10px 0px;
+  color: #FFF;
+  background-color: #1CAC78;
+  height: 40px; 
+  cursor: pointer;
+}
+
+.inputfield {
+    border: 1px solid black;
+    border-radius: 10px;
+    background: none;
+    padding: 5px;
+    margin: 10px 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.share-video-link-button {
+    border: 1px solid #7734e7;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    pading: 10px;
+    margin: 10px 0px;
+    color: #FFF;
+    background-color: #7734e7;
+    height: 40px;
 }

@@ -1,14 +1,41 @@
-{% block content %}
-  <h2>Appointment Details</h2>
-  <p>Doctor: {{ appointment.doctor }}</p>
-  <p>Patient: {{ appointment.patient }}</p>
-  <p>Date: {{ appointment.date }}</p>
-  <p>Time: {{ appointment.time }}</p>
-  <p>Reason: {{ appointment.reason }}</p>
-  <!-- Add more details as needed -->
-
-  <!-- Add a link to join the video call if applicable -->
-  {% if appointment.status == 'Approved' %}
-    <a href="{% url 'doctor_video' %}">Link to Video Call</a>    
-  {% endif %}
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{patient.full_name}}</title>
+    <link rel="stylesheet" href="{% static 'doctors/css/doc_dash_style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="doctor-dash-root">
+    <header>
+        <h1>Bikisa</h1>
+    </header>
+    <div class="appointment-detail-root">
+      <h2>Detail de la consultation</h2>
+      <p>Consultation ID: {{ appointment.id }}</p>
+      <p>Consultation demande par le patient: {{ appointment.patient }}</p>
+      <p>Demande pour le {{appointment.date}} a {{appointment.time}}</p>
+      <p>Syptoms: {{ appointment.reason }}</p>
+      {% if appointment.status == 'Approved' %}
+        <a href="{% url 'doctor_video' %}" class="start-video-call">Demarrez une consultation video</a>    
+      {% endif %}
+  
+      <h2>Partager le lien de la consultation au patient</h2>
+      <form>
+       <lable>Ecrire ou coller le lien de la video</label><br>
+        <input type="text" class="inputfield" required/><br>
+        <button type="submit" class="share-video-link-button">Envoyer</button>
+      </form>
+    </div>
+<footer>
+        <p>&copy; 2023 Bikisa</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+    </footer>
+    </body>
+</html>
