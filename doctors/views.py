@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from .models import Doctor
 from django.views import View
 from appointments.models import Appointment
+from .forms import VideoLinkForm
 
 def doctor_login(request):
     if request.method == 'POST':
@@ -103,3 +104,22 @@ def doctor_video(request):
     doctor_id = request.session.get('doctor_id')
     doctor = Doctor.objects.get(id=doctor_id)
     return render(request, 'doctors/doctor_video.html', {'doctor': doctor})
+
+# Envoyer le lien pour integrer la video
+def submit_video_link(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if request.method == 'POST':
+        form = VideoLinkForm(request.POST)
+        if form.is_valid():
+            video_link = form.cleaned_data['video_link']
+
+            # Update the video_link field of the appointment
+            appointment.video_link = video_link
+            appointment.save()
+
+            return redirect('doctor_dashboard')  # Redirect to the doctor dashboard after submission
+    else:
+        form = VideoLinkForm()
+
+    return render(request, 'doctors/submit_video_link.html', {'form': form})

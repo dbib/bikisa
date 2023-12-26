@@ -21,6 +21,7 @@ class Appointment(models.Model):
     time = models.TimeField(default='12:00:00')
     reason = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    video_link = models.URLField(blank=True, default='empty')
     notification_status = models.CharField(
         max_length=20,
         choices=NOTIFICATION_CHOICES,

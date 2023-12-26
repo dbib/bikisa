@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{patient.full_name}}</title>
+    <title>Consultation n{{appointment.id}}-{{patient.full_name}}</title>
     <link rel="stylesheet" href="{% static 'patients/css/patient_dash_style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -31,6 +31,14 @@
         {% if appointment.status == 'pending' %}
             <p>Cette consultation est toujour en attente</p>
         {% endif %}
+        
+        {% if appointment.video_link == 'empty' %}
+            <p>Aucun lien vers la consultation video pour le moment</p>
+            <p>Veuillez revenir (ou verifier) la date et leur de la consultation</p>
+        {% else %}
+            <a href="{{appointment.video_link}}">Clicker ici pour commencer la consultation</a>
+        {% endif %}
+        
     </div>
     <footer>
         <p>&copy; 2023 Bikisa</p>

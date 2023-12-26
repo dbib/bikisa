@@ -71,11 +71,16 @@ li {
 .profil-container {
     width: 18%;
     margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profil-container img {
-    width: 100%;
-    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+    border-radius: 50%;
 }
 
 .info-container {
@@ -177,4 +182,8 @@ li {
     background-color:#FFF;
     color: black;
     padding: 30px;
+}
+
+.hidden {
+    display: none;
 }

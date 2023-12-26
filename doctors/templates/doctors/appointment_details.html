@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{patient.full_name}}</title>
+    <title>Consultation n{{appointment.id}}</title>
     <link rel="stylesheet" href="{% static 'doctors/css/doc_dash_style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -20,15 +20,9 @@
       <p>Demande pour le {{appointment.date}} a {{appointment.time}}</p>
       <p>Syptoms: {{ appointment.reason }}</p>
       {% if appointment.status == 'Approved' %}
-        <a href="{% url 'doctor_video' %}" class="start-video-call">Demarrez une consultation video</a>    
+        <a href="{% url 'doctor_video' %}" target="_blank" class="start-video-call">Demarrez une consultation video</a> <br><br><br>
+        <a href="{% url 'submit_video_link' appointment.id %}" target="_blank" class="submit-video-link">Partager le lien de la consultation</a>   
       {% endif %}
-  
-      <h2>Partager le lien de la consultation au patient</h2>
-      <form>
-       <lable>Ecrire ou coller le lien de la video</label><br>
-        <input type="text" class="inputfield" required/><br>
-        <button type="submit" class="share-video-link-button">Envoyer</button>
-      </form>
     </div>
 <footer>
         <p>&copy; 2023 Bikisa</p>

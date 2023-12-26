@@ -16,11 +16,7 @@
     <div class="patient-dash-root-box">
         <div class="patient-info">
             <div class="profil-container">
-                {% if patient.profile_image %}
                     <img src="{{ patient.profile_image.url }}" alt="Profile Picture">
-                {% else %}
-                    <p>No profile picture available.</p>
-                {% endif %}
             </div>
             <div class="info-container">
                 <h3>{{patient.full_name }}</h3>
@@ -95,6 +91,7 @@
     </footer>
     </div>
     <script>
+        // Notification
         function updateAppointmentStatus(appointmentId, action) {
             fetch('{% url "doctor_dashboard" %}', {
                 method: 'POST',
