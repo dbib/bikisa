@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
+import random
 from django.http import JsonResponse
 from .models import Doctor
 from django.views import View
@@ -92,6 +93,51 @@ def doctor_approve_appointment(request, appointment_id):
 
     return redirect('doctor_dashboard')
 
+#Gerer l'hospitalisation du patient
+def doctor_hospitalize_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'hospitalize':
+            appointment.status = 'Hospitalized'
+            messages.success(request, f'Le patient de la consultation numero #{appointment_id} a ete hospitalise.')
+
+        appointment.save()
+
+    return redirect('doctor_dashboard')
+
+#Finir la consultation
+def doctor_finish_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'finish':
+            appointment.status = 'Finished'
+            messages.success(request, f'La consultation numero #{appointment_id} est fini.')
+
+        appointment.save()
+
+    return redirect('doctor_dashboard')
+
+#Sortir le patient hospitalisee
+def doctor_release_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'finish':
+            appointment.status = 'Finished'
+            messages.success(request, f'Le patient de la consultation numero #{appointment_id} a ete sorti.')
+
+        appointment.save()
+
+    return redirect('doctor_hospitalize')
+
 # Gerer les details des consultation
 def doctor_appointment_details(request, appointment_id):
     doctor = Doctor.objects.get(id=request.session.get('doctor_id'))
@@ -123,3 +169,44 @@ def submit_video_link(request, appointment_id):
         form = VideoLinkForm()
 
     return render(request, 'doctors/submit_video_link.html', {'form': form})
+
+# Gerer la page des malades hospitalise
+def doctor_hospitalize(request, *args, **kwargs):
+    doctor_id = request.session.get('doctor_id')
+
+    if not doctor_id:
+        messages.error(request, "vous devez vous connecter")
+        return redirect('doctor_login')  # Rediriger vers la page login de medecin
+    
+    # Recuperer les donnees du medecin, les demandes de consultation et la liste des consultation approuver mais dans le futur
+    doctor = Doctor.objects.get(id=doctor_id)
+    approved_appointments = Appointment.objects.filter(doctor=doctor, status= 'Hospitalized')
+    
+    hospitalize_data = []
+    for patient in approved_appointments:
+        #Tension arterielle
+        t_high = random.randint(120,140)
+        t_lower = random.randint(80,90)
+        patient.tension_arterielle = f"{t_high}/{t_lower}"
+        
+        #Frequence cardiaque
+        frequence = random.randint(60,100)
+        patient.frequence_cardiaque = f"{frequence} bpm"
+        
+        #Temperature corporelle
+        temp = random.uniform(35,39)
+        temp = round(temp, 1)
+        patient.temperature_corporelle = f"{temp}"
+        
+        #Frequence respiratoire
+        frequence_r = random.randint(12,20)
+        patient.frequence_respiratoire = f"{frequence_r}"
+        
+        #Saturation en oxygene
+        oxy = random.randint(80,100)
+        patient.saturation_oxygene = f"{oxy}%"
+        
+        hospitalize_data.append(patient)
+    
+    return render(request, 'doctors/doctor_hospitalize.html', {'hospitalize_data': hospitalize_data, 'doctor': doctor})
+

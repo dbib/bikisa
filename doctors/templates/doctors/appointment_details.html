@@ -28,14 +28,12 @@
       <br>
       <form method="post" action="{% url 'doctor_hospitalize_appointment' appointment.id %}" >
             {% csrf_token %}
-                <button type="submit" name="action" value="hospitalize" class="pending-approve-btn">Hospitaliser le patient</button>
+                <button type="submit" name="action" value="hospitalize" class="hospitalize-btn">Hospitaliser le patient</button>
         </form>
-        
-        <br>
       <br>
       <form method="post" action="{% url 'doctor_finish_appointment' appointment.id %}" >
             {% csrf_token %}
-                <button type="submit" name="action" value="finish" class="pending-approve-btn">Finir la consultation</button>
+                <button type="submit" name="action" value="finish" class="finir-btn">Finir la consultation</button>
         </form>
     </div>
 <footer>

@@ -8,6 +8,8 @@ class Appointment(models.Model):
         ('Pending', 'Pending'),
         ('Approved', 'Approved'),
         ('Rejected', 'Rejected'),
+        ('Hospitalized','Hospitalized'),
+        ('Finished','Finished'),
     ]
     
     NOTIFICATION_CHOICES = [
