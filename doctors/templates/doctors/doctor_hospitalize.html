@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{doctor.name}} - patients hospitalise</title>
+    <link rel="stylesheet" href="{% static 'doctors/css/doc_dash_style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+        <h1>Bikisa</h1>
+    </header>
+    <div class="doctor-hospitalize-root">
+        <div class="doctor-hospitalize">
+            <h3>Liste des patients hospitalisés</h3>
+            <table class="doctor-hospitalize-list">
+                <tr class="doc-hosp-table-row">
+                    <th>Profil</th>
+                    <th>Nom</th>
+                    <th>Symptoms</th>
+                    <th>Status</th>
+                    <th>Tension arterielle</th>
+                    <th>Frequence cardiaque</th>
+                    <th>Temperature</th>
+                    <th>Frequence respiratoire</th>
+                    <th>Saturation en oxygen</th>
+                    <th>Action</th>
+                </tr>
+                {% for patient in hospitalize_data %}
+                <tr>
+                    <td>
+                        <div class="doctor-hosp-profil-box">
+                            <img src="{{patient.patient.profile_image.url}}">
+                        </div>
+                    </td>
+                    <td>{{ patient.patient.full_name }}<br>{{ patient.patient.email }}</td>
+                    <td>{{patient.reason}}</td>
+                    <td>Hospitalisé</td>
+                    <td><strong> {{patient.tension_arterielle}} mmHg</strong></td>
+                    <td><strong> {{patient.frequence_cardiaque}}</strong></td>
+                    <td><strong> {{patient.temperature_corporelle}}&deg;C</strong></td>
+                    <td><strong> {{patient.frequence_respiratoire}}</strong></td>
+                    <td><strong> {{patient.saturation_oxygene}}</strong></td>
+                    <td>
+                        <form method="post" action="{% url 'doctor_release_appointment' patient.id %}" >
+                            {% csrf_token %}
+                                <button type="submit" name="action" value="finish" class="pending-approve-btn">Finir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2023 Bikisa</p>
+        <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+    </footer>
+</body> 
+</html>

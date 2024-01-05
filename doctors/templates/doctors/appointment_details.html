@@ -23,6 +23,20 @@
         <a href="{% url 'doctor_video' %}" target="_blank" class="start-video-call">Demarrez une consultation video</a> <br><br><br>
         <a href="{% url 'submit_video_link' appointment.id %}" target="_blank" class="submit-video-link">Partager le lien de la consultation</a>   
       {% endif %}
+      
+      <br>
+      <br>
+      <form method="post" action="{% url 'doctor_hospitalize_appointment' appointment.id %}" >
+            {% csrf_token %}
+                <button type="submit" name="action" value="hospitalize" class="pending-approve-btn">Hospitaliser le patient</button>
+        </form>
+        
+        <br>
+      <br>
+      <form method="post" action="{% url 'doctor_finish_appointment' appointment.id %}" >
+            {% csrf_token %}
+                <button type="submit" name="action" value="finish" class="pending-approve-btn">Finir la consultation</button>
+        </form>
     </div>
 <footer>
         <p>&copy; 2023 Bikisa</p>
